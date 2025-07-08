@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Operator Icons</title>
+  <style>
+    .icon {
+      font-size: 40px;
+      color: green;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <label>Enter Number: 
+    <input type="number" id="numberInput">
+  </label>
+  <label>Select operator: 
+    <select id="operatorInput">
+      <option value="" selected disabled>Selected</option>
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+  </label>
+
+  <button onclick="generateIcons()">Show</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateIcons() {
+      let num = +document.getElementById('numberInput').value;
+      let op = document.getElementById('operatorInput').value;
+      let iconsHTML = "";
+
+      for (let i = 1; i <= num; i++) {
+        iconsHTML += `<span class="icon" data-index="${i}">${op}</span>`;
+      }
+
+      document.getElementById('output').innerHTML = iconsHTML;
+
+      // Add click handlers directly after creating icons
+      document.querySelectorAll('.icon').forEach(icon => {
+        icon.onclick = function() {
+          let index = +this.dataset.index;
+          let numInput = document.getElementById('numberInput');
+          numInput.value = +numInput.value + index;
+          document.getElementById('output').innerHTML = "";
+        };
+      });
+    }
+  </script>
+</body>
+</html>
